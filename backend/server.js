@@ -1,7 +1,7 @@
 import express from "express";
-import connectDB from './config/db';
-import userRoutes from "./routes/userRoutes";
-import adminRoutes from "./routes/adminRoutes";
+import db from './config/db.js';
+import userRoutes from './routes/userRoutes.js';
+import adminRoutes from "./routes/adminRoutes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
 import path from 'path'
@@ -14,7 +14,6 @@ const __dirname = dirname(__filename);
 
 configDotenv();
 
-connectDB();
 
 const app = express()
 app.use(

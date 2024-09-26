@@ -1,7 +1,7 @@
 import e from "express";
-import User from "../models/userSchema";
-import { matchPassword } from "../services/passwordService";
-import generateToken from "../util/generateToken";
+import User from "../models/userSchema.js";
+import { matchPassword } from "../services/passwordService.js";
+import generateToken from "../util/generateToken.js";
 
 const authUser = async (req, res) => {
     try {

@@ -1,4 +1,4 @@
-import User from "../models/userSchema";
+import User from "../models/userSchema.js";
 
 const getUsers = async(req, res)=> {
     try {

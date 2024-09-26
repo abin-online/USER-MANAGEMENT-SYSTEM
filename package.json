@@ -4,7 +4,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"cd frontend && npm start\""
+    "start": "node Backend/server.js",
+    "server": "nodemon Backend/server.js",
+    "client": "npm run dev --prefix Frontend",
+    "dev": "npm run server"
   },
   "keywords": [],
   "author": "",

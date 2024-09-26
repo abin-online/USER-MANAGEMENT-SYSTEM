@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken"
-import User from "../models/userSchema"
+import User from "../models/userSchema.js"
 const tokenSecret = process.env.JWT_SECRET;
 
 const protect = async(req, res, next)=> {

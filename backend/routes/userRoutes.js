@@ -1,7 +1,7 @@
 import express from "express";
-import { authUser, getUserProfile, logoutUser, registerUser, updateUserProfile } from "../controllers/userControllers";
-import upload from "../services/fileUploadService";
-import { protect } from "../middleware/authMiddleware";
+import { authUser, getUserProfile, logoutUser, registerUser, updateUserProfile } from "../controllers/userControllers.js";
+import upload from "../services/fileUploadService.js";
+import { protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.post('/', registerUser);
