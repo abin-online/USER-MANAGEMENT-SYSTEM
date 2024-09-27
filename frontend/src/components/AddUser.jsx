@@ -18,10 +18,15 @@ const AddUser = ({close}) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
+
     } else {
-      dispatch(createUser({ name, email, password })).then(res => {
-       close()
-      });
+        if(password.length < 5){
+          toast.error('Password should be atleast 5 characters');
+        }else{
+          dispatch(createUser({ name, email, password })).then(res => {
+            close()
+           });
+        }
     }
   };
 

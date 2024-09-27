@@ -27,9 +27,14 @@ const SignUpForm = () => {
         if (password !== confirmPassword) {
           toast.error("Passwords do not match");
         } else {
-          dispatch(registerUser({ name, email, password })).then(res => {
-            dispatch(setCredentials(res.payload));
-          });
+          if(password.length < 5){
+            toast.error('Password should be atleast 5 characters');
+          }else{
+            dispatch(registerUser({ name, email, password })).then(res => {
+              dispatch(setCredentials(res.payload));
+            });
+          }
+
         }
       };
 

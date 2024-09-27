@@ -11,6 +11,7 @@ const Profile = () => {
   const [image, setImage] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [preview, setPreview] = useState();
+  const [phone , setPhone] = useState()
   const dispatch = useDispatch();
   const { userInfo } = useSelector(state => state.auth); 
 
@@ -18,7 +19,12 @@ const Profile = () => {
     e.preventDefault();
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
-    } else {
+    } 
+    else {
+      if(phone.toString().length < 10 || phone.toString().length > 10 ) {
+        toast.error('Phone number should be 10 digits')
+      }
+      else{
       let imageUrl;
       if (image) {
         // Create a new FormData instance
@@ -46,7 +52,7 @@ const Profile = () => {
         formData.append("imageUrl", imageUrl);
       }
 
-      dispatch(updateUser({ name, password, imageUrl })).then(action => {
+      dispatch(updateUser({ name, password, phone ,  imageUrl })).then(action => {
         if (action.meta.requestStatus === "rejected") {
           const errorMessage = "Some Error occurred";
           toast.error(errorMessage);
@@ -56,6 +62,7 @@ const Profile = () => {
           toast.success("Credentials Updated");
         } 
       });
+    }
     }
   };
   const handleFileChange = event => {
@@ -154,6 +161,22 @@ const Profile = () => {
                         required
                         value={userInfo.email}
                         readOnly
+                      />
+                    </div>
+                    <div className="mb-2 sm:mb-6">
+                      <label
+                        htmlFor="password"
+                        className="block mb-2 text-sm font-medium text-gray-700"
+                      >
+                        Phone No
+                      </label>
+                      <input
+                        onChange={e => setPhone(e.target.value)}
+                        type="number"
+                        id="phone"
+                        defaultValue={userInfo.phone}
+                        className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
+                        placeholder="phone no:"
                       />
                     </div>
     

@@ -99,10 +99,11 @@ const updateUserProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user._id);
         if (user) {
-            
+            console.log(req.body ,"--------------------------")
             user.name = req.body.name || user.name;
             user.email = req.body.email || user.email;
             user.imageURL = req.body.imageUrl || user.imageURL;
+            user.phone = req.body.phone || user.phone ;
 
             if (req.body.password) {
                 let passwordData = req.body.password;
@@ -116,6 +117,7 @@ const updateUserProfile = async (req, res) => {
                 name: updateUser.name,
                 image: updateUser.imageURL,
                 email: updateUser.email,
+                phone: updateUser.phone
             });
         } else {
             res.status(404);

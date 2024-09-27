@@ -80,7 +80,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = "idle";
-        // state.user =action.payload 
+        //state.user =action.payload 
        
       })
       .addCase(updateUser.rejected, (state, action) => {

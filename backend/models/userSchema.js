@@ -15,6 +15,9 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    phone : {
+        type: Number,
+    },
     imageURL: {
         type: String,
         required: false,
