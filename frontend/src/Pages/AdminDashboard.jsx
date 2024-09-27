@@ -7,24 +7,32 @@ const AdminDashboard = () => {
     setAddUser(false);
   };
   return (
-    <div className="relative pt-16">
+    <div className="relative pt-16 bg-gray-50 min-h-screen">
       {addUser && (
         <>
           <div
             onClick={() => setAddUser(false)}
-            className="min-h-screen absolute bg-black/45  w-screen z-50 top-0 flex flex-col justify-center sm:py-12"
+            className="min-h-screen absolute bg-black/60 w-full z-50 top-0 flex items-center justify-center"
           ></div>
           <AddUser close={handleClose} />
         </>
       )}
-      <h1 className="text-center pt-5 text-5xl font-black ">Admin DashBoard</h1>
-      <UsersTable />
-      <div className="mt-5 w-screen flex justify-center">
-      <button className="bg-blue-500 rounded-md px-4 py-2 text-white hover:bg-blue-700" onClick={() => setAddUser(true)}>ADD USER</button>
-
+        <>
+        <UsersTable />
+        </>
+      
+      <div className="mt-8 flex justify-center">
+        <button
+          className="bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 rounded-lg px-6 py-3 text-white font-extralight shadow-lg"
+          onClick={() => setAddUser(true)}
+        >
+          ADD USER
+        </button>
       </div>
     </div>
   );
+  
+  
 };
 
 export default AdminDashboard;

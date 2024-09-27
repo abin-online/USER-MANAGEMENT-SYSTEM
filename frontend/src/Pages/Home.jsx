@@ -15,7 +15,7 @@ const Home = () => {
       />
       <div className=" justify-center bg-black/30  h-screen items-center  flex">
         <p className="text-white  font-[poppins] text-6xl shadow-lg font-black">
-          WElcome to the Home Page
+          Home Page
         </p>
 
       </div>

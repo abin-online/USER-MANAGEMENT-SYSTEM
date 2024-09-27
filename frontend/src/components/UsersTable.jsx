@@ -35,34 +35,29 @@ const [searchQuery, setSearchQuery] = useState("");
 
 
 
-  return (
-    <>
-      <div className="flex-col flex items-center  justify-center mt-5">
-        <h1>User Management</h1>
-        <div className="flex  justify-start w-screen">
-          <input
-            className="mx-96"
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-          />
-        </div>
-        <table class="max-w-10 ">
-          <thead class="bg-white border-b">
+return (
+  <>
+    <div className="flex flex-col items-center justify-center mt-5">
+      <h1 className="text-3xl font-extrabold text-gray-900 mb-4">Admin Dashboard</h1>
+      
+      <div className="flex justify-center w-full mb-4">
+        <input
+          className="border border-gray-300 rounded-lg px-4 py-2 w-1/3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      <div className="overflow-x-auto w-full max-w-4xl mx-auto"> {/* Centering and limiting max width */}
+        <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+          <thead className="bg-gray-200 border-b">
             <tr>
-              <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                ID
-              </th>
-              <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Name
-              </th>
-              <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Email
-              </th>
-              <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Actions
-              </th>
+              <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">ID</th>
+              <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">Name</th>
+              <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">Email</th>
+              <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">Actions</th>
             </tr>
           </thead>
 
@@ -74,13 +69,14 @@ const [searchQuery, setSearchQuery] = useState("");
                   .includes(searchQuery.toLowerCase())
               )
               .map(user => (
-                <tr key={user._id} class="bg-gray-100 border-b">
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <tr key={user._id} className="bg-gray-100 border-b transition duration-200 hover:bg-gray-200">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     <pre>{user._id}</pre>
                   </td>
-                  <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     {editedUserId === user._id ? (
                       <input
+                        className="border border-gray-300 rounded-lg px-2 py-1"
                         type="text"
                         defaultValue={editedUserData.name || user.name}
                         onChange={e =>
@@ -94,9 +90,10 @@ const [searchQuery, setSearchQuery] = useState("");
                       user.name
                     )}
                   </td>
-                  <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     {editedUserId === user._id ? (
                       <input
+                        className="border border-gray-300 rounded-lg px-2 py-1"
                         type="email"
                         defaultValue={editedUserData.email || user.email}
                         onChange={e =>
@@ -110,24 +107,25 @@ const [searchQuery, setSearchQuery] = useState("");
                       user.email
                     )}
                   </td>
-                  <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     {editedUserId === user._id ? (
                       <button
+                        className="bg-blue-500 hover:bg-blue-600 text-white font-extralight py-1 px-4 rounded transition duration-200"
                         onClick={() => handleEditUser(user._id, editedUserData)}
-                        // disabled={isEditing}
                       >
                         Save
                       </button>
                     ) : (
                       <>
                         <button
-                          className="mr-4"
+                          className="mr-4 bg-yellow-500 hover:bg-yellow-600 text-white font-extralight py-1 px-4 rounded transition duration-200"
                           onClick={() => setEditedUserId(user._id)}
                           disabled={userInfo._id === user._id}
                         >
                           Edit
                         </button>
                         <button
+                          className="bg-red-500 hover:bg-red-600 text-white font-extralight py-1 px-4 rounded transition duration-200"
                           onClick={() => handleDeleteUser(user._id)}
                           disabled={userInfo._id === user._id}
                         >
@@ -141,8 +139,11 @@ const [searchQuery, setSearchQuery] = useState("");
           </tbody>
         </table>
       </div>
-    </>
-  );
+    </div>
+  </>
+);
+
+
 };
 
 export default UsersTable;
