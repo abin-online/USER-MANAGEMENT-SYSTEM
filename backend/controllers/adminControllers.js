@@ -46,7 +46,7 @@ const editUser = async (req, res)=> {
             user.name = name || user.name;
             user.email = email || user.email
 
-            const updateUser = await User.save();
+            const updateUser = await user.save();
             res.status(200).json({
                 _id: updateUser._id,
                 name: updateUser.name,

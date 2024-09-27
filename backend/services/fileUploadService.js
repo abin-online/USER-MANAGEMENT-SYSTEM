@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 
-const uploadsDir = "./uploads";
+const uploadsDir = "./backend/uploads";
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true }); // Create the directory if it doesn't exist
 }
@@ -19,6 +19,6 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
 
-export default upload;
+
+export default storage;

@@ -1,8 +1,20 @@
 import express from "express";
 import { authUser, getUserProfile, logoutUser, registerUser, updateUserProfile } from "../controllers/userControllers.js";
-import upload from "../services/fileUploadService.js";
 import { protect } from "../middleware/authMiddleware.js";
+import multer from "multer";
+// import storage from "../services/fileUploadService.js";
 const router = express.Router();
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+      callback(null, "./backend/uploads");
+    },
+    filename: function (req, file, callback) {
+      callback(null, Date.now() + "-" + file.originalname);
+    },
+  });
+
+const upload = multer({storage: storage })
 
 router.post('/', registerUser);
 router.post('/auth' , authUser);

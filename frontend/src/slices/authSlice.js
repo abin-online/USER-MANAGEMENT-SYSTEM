@@ -2,9 +2,18 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   userInfo: localStorage.getItem('userInfo')
-    ? JSON.parse(localStorage.getItem('userInfo'))
+    ? safelyParseJSON(localStorage.getItem('userInfo'))
     : null,
 };
+
+// Helper function to safely parse JSON
+function safelyParseJSON(jsonString) {
+  try {
+    return JSON.parse(jsonString);
+  } catch (e) {
+    return null; // return null if parsing fails
+  }
+}
 
 const authSlice = createSlice({
   name: "auth",
@@ -12,7 +21,6 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       state.userInfo = action.payload;
-      
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
     },
     updateImage: (state, action) => {
@@ -30,6 +38,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials,updateImage, logout } = authSlice.actions;
+export const { setCredentials, updateImage, logout } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -8,17 +8,18 @@ import path from 'path'
 import { configDotenv } from 'dotenv';
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import connectDB from "./config/db.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 configDotenv();
 
-
+connectDB()
 const app = express()
 app.use(
   cors({
-    origin: "http://localhost:5713",
+    origin: "http://localhost:5173",
     credentials: true,
     exposedHeaders: ["set-cookie"]
   })

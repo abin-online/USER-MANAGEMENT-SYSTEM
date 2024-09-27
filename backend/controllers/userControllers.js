@@ -1,6 +1,6 @@
-import e from "express";
+import express from "express";
 import User from "../models/userSchema.js";
-import { matchPassword } from "../services/passwordService.js";
+import { hashPassword, matchPassword } from "../services/passwordService.js";
 import generateToken from "../util/generateToken.js";
 
 const authUser = async (req, res) => {
@@ -29,36 +29,39 @@ const authUser = async (req, res) => {
 
 const registerUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+      const { name, email, password } = req.body;
 
-        const userExists = await User.findOne({ email });
-        if (userExists) {
-            res.status(400);
-            throw new Error('User already exists');
-        }
+      console.log(`register new user: ${req.body.email}`);
 
-        const user = await User.create({
-            name,
-            email,
-            password,
-            image: ""
-        })
+      const userExists = await User.findOne({ email });
 
-        if (user) {
-            generateToken(res, user._id);
-            res.status(201).json({
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                image: user.image,
-            })
-        } else {
-            res.status(400);
-            throw new Error('Invalid credentials')
-        }
+      if (userExists) {
+        res.status(400);
+        throw new Error("User already exists");
+      }
 
+      const hashedPassword = await hashPassword(password)
+
+      const user = await User.create({
+        name,
+        email,
+        password : hashedPassword,
+        image: "",
+      });
+      if (user) {
+        generateToken(res, user._id);
+        res.status(201).json({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          image: user.image,
+        });
+      } else {
+        res.status(400);
+        throw new Error("Invalid user data");
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
 }
 
@@ -96,12 +99,14 @@ const updateUserProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user._id);
         if (user) {
+            
             user.name = req.body.name || user.name;
             user.email = req.body.email || user.email;
-            user.imageURL = req.body.imageURL || user.imageURL;
+            user.imageURL = req.body.imageUrl || user.imageURL;
 
             if (req.body.password) {
-                user.password = req.body.password;
+                let passwordData = req.body.password;
+                user.password = await hashPassword(passwordData)
             }
 
             const updateUser = await user.save();
